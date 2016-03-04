@@ -1,7 +1,4 @@
-//Building the camera elements on the DOM and controls
 var bodyElement = document.querySelector("body");
-var scriptTag = bodyElement.firstChild;
-
 var activeCameras = [
   {
     name: "CamBlack",
@@ -16,10 +13,30 @@ var activeCameras = [
     password: ""
 }];
 
+
+/// Building the camera elements on the DOM
 // This builds the divs for all "installed" cameras
-for (var i = 0; i < activeCameras.length; i++) {
-  var createDiv = document.createElement("div");
-  createDiv.id = activeCameras[i].name;
-  createDiv.classList.add("camera-container");
-  bodyElement.insertBefore(createDiv, bodyElement.lastChild);
-};
+function buildCamDivs() {
+  for (var i = 0; i < activeCameras.length; i++) {
+    var createDiv = document.createElement("div");
+    createDiv.id = activeCameras[i].name;
+    createDiv.classList.add("camera-container");
+    bodyElement.insertBefore(createDiv, bodyElement.lastChild);
+  };
+}
+
+function addCamVideo() {
+  for (var i = 0; i < activeCameras.length; i++) {
+    var camDiv = document.getElementById(activeCameras[i].name);
+    var imgElement = document.createElement("img");
+    var camVideo = "http://" + activeCameras[i].ip + "/videostream.cgi?user=" + activeCameras[i].userLogin + "&pwd=" + activeCameras[i].password + "&resolution=8&rate=14";
+    var camPicture = "http://" + activeCameras[i].ip + "/snapshot.cgi?user=" + activeCameras[i].userLogin + "&pwd=" + activeCameras[i].password + "&resolution=8&rate=14";
+    imgElement.setAttribute("src", camPicture);
+    imgElement.classList.add("camera-img");
+    camDiv.appendChild(imgElement);
+  };
+}
+
+buildCamDivs();
+addCamVideo();
+
