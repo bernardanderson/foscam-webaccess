@@ -31,10 +31,18 @@ function addCamVideo() {
     var imgElement = document.createElement("img");
     var camVideo = "http://" + activeCameras[i].ip + "/videostream.cgi?user=" + activeCameras[i].userLogin + "&pwd=" + activeCameras[i].password + "&resolution=8&rate=14";
     var camPicture = "http://" + activeCameras[i].ip + "/snapshot.cgi?user=" + activeCameras[i].userLogin + "&pwd=" + activeCameras[i].password + "&resolution=8&rate=14";
-    imgElement.setAttribute("src", camPicture);
+    imgElement.setAttribute("src", camVideo);
     imgElement.classList.add("camera-img");
     camDiv.appendChild(imgElement);
   };
+}
+
+function reqListener () {
+  console.log(this.responseText);
+}
+
+function moveCamRight() {
+  //Need to figure out Ajax requests
 }
 
 buildCamDivs();
