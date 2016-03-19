@@ -1,3 +1,5 @@
+"use strict"
+//get_camera_params.cgi
 
 var Cameras = function(cameraData) {
 
@@ -21,6 +23,10 @@ var Cameras = function(cameraData) {
 //  Accessible via Cameras.getCameraList[i].key
   cameraData.getCameraList = function() {
     return activeCameras;
+  }
+
+  cameraData.getCameraParameters = function() {
+
   }
 
   return cameraData;
