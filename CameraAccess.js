@@ -1,35 +1,20 @@
 "use strict"
-//get_camera_params.cgi
 
-var Cameras = function(cameraData) {
+var Cameras = ((cameraAccess) => {
 
-// Initializes the array of Camera Objects along with their key:value pairs
-//  You can add additional cameras to this array
-  var activeCameras = [
-    {
-      name: "CamBlack",
-      ip: "192.168.0.150",
-      userLogin: "mover",
-      password: ""
-    },
-    {
-      name: "CamWhite",
-      ip: "192.168.0.151",
-      userLogin: "mover",
-      password: ""
-    }];
+  // This takes the activeCameraArray and userString from the main Cameras.js file
+  //  and makes it accessable in this augmentation.
+  let activeCameras = Cameras.activeCameras();
+  let user = Cameras.user();
 
-// Returns the list of Cameras and gives access to their keys and values
-//  Accessible via Cameras.getCameraList[i].key
-  cameraData.getCameraList = function() {
-    return activeCameras;
+  /// Building the camera elements on the DOM
+  // This builds the divs for all "installed" cameras
+  cameraAccess.getBasicInfo = (sentCamera, sentInfoRequest) => {
+    let commandString = Cameras.getCameraInfoString(sentInfoRequest);
+    commandString = `http://${activeCameras[sentCamera].ip}${commandString}${user}`;
+    Cameras.getCameraInfo(commandString);
   }
 
-  cameraData.getCameraParameters = function() {
+  return cameraAccess;
 
-  }
-
-  return cameraData;
-
-} (Cameras || {});
-
+})(Cameras || {});

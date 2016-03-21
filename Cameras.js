@@ -2,6 +2,7 @@
 
 var Cameras = (() => {
 
+  let userString = "?user=mover&pwd=";
   let activeCameraArray = [
     {
       name: "CamBlack",
@@ -26,10 +27,23 @@ var Cameras = (() => {
       console.log(activeCameraArray);
     },
 
-    getCameraParameters: (sentCamera) => {
-      let camParameters = `http://${sentCamera}/get_camera_params.cgi`;
-      console.log(camParameters);
-    }
+    // Sets up the strings for the accessing the Camera Info
+    getCameraInfoString: (sentCameraInfoRequest) => {
+      if (sentCameraInfoRequest = "info") {
+        return `/get_camera_params.cgi`;
+      }
+    },
+
+    // This gets the camera configuration. Call this function using an array element number
+    //  for the camera from the activeCameraArray list
+    getCameraParameters: (sentCameraNumber, sentCameraInfoString) => {
+        Cameras.getCameraInfo(sentCameraNumber, cameraParamString);
+    },
+
+    // This returns the user string info so that doesn't have to be 
+    //  changed in each page
+    user: () => userString,
+
   };
 
 })(Cameras || {});
